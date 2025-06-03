@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Estaciones de Línea {{ linea.id_linea }}</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 30px;
+      background-color: #f4f4f4;
+    }
+
+    h1 {
+      color: #333;
+      text-align: center;
+    }
+
+    .contenedor {
+      max-width: 700px;
+      margin: auto;
+      background-color: white;
+      border-radius: 10px;
+      padding: 30px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    li {
+      padding: 10px;
+      border-bottom: 1px solid #ccc;
+    }
+
+    li:last-child {
+      border-bottom: none;
+    }
+
+    .volver {
+      display: block;
+      text-align: center;
+      margin-top: 20px;
+      text-decoration: none;
+      background-color: #0078D7;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 8px;
+    }
+
+    .volver:hover {
+      background-color: #005ea6;
+    }
+  </style>
+</head>
+<body>
+  <div class="contenedor">
+    <h1>Estaciones de Línea {{ linea.id_linea }}</h1>
+    <ul>
+      {% for estacion in estaciones %}
+        <li>{{ estacion.nombre }}</li>
+      {% empty %}
+        <li>No hay estaciones registradas para esta línea.</li>
+      {% endfor %}
+    </ul>
+    <a href="{% url 'dashboard' %}" class="volver">⬅ Volver al dashboard</a>
+  </div>
+</body>
+</html>

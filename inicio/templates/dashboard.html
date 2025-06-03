@@ -1,0 +1,80 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard Transmetro</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-color: #fdfdfd;
+    }
+
+    h1 {
+      font-size: 36px;
+      margin-top: 20px;
+    }
+
+    .logo {
+      width: 300px;
+    }
+
+    .grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 30px;
+    }
+
+    .linea {
+      width: 200px;
+      margin: 20px;
+      text-align: center;
+      text-decoration: none;
+      color: black;
+      font-weight: bold;
+    }
+
+    .linea span {
+      display: inline-block;
+      padding: 10px 20px;
+      border-radius: 10px;
+      color: white;
+      font-weight: bold;
+    }
+
+    .l1 { background-color: purple; }
+    .l2 { background-color: #8E44AD; }
+    .l6 { background-color: gold; color: black; }
+    .l7 { background-color: gray; }
+    .l12 { background-color: orangered; }
+    .l13 { background-color: green; }
+    .l18 { background-color: deepskyblue; }
+
+    .cohete {
+      position: absolute;
+      right: 20px;
+      top: 20px;
+      width: 120px;
+    }
+  </style>
+</head>
+<body>
+  <img src="{% static 'img/logo_transmetro.png' %}" alt="Logo Transmetro" class="logo">
+  <h1>Bienvenido a <br>Transmetro Guatemala</h1>
+  <h2 style="color:#0078D7;">¿Qué deseas consultar?</h2>
+
+  <div class="grid">
+    <a href="{% url 'ver_linea' 1 %}" class="linea"><span class="l1">LÍNEA 1</span><br>Estaciones y Recorrido de Línea 1</a>
+    <a href="{% url 'ver_linea' 2 %}" class="linea"><span class="l2">LÍNEA 2</span><br>Estaciones y Recorrido de Línea 2</a>
+    <a href="{% url 'ver_linea' 6 %}" class="linea"><span class="l6">LÍNEA 6</span><br>Estaciones y Recorrido de Línea 6</a>
+    <a href="{% url 'ver_linea' 7 %}" class="linea"><span class="l7">LÍNEA 7</span><br>Estaciones y Recorrido de Línea 7</a>
+    <a href="{% url 'ver_linea' 12 %}" class="linea"><span class="l12">LÍNEA 12</span><br>Estaciones y Recorrido de Línea 12</a>
+    <a href="{% url 'ver_linea' 13 %}" class="linea"><span class="l13">LÍNEA 13</span><br>Estaciones y Recorrido de Línea 13</a>
+    <a href="{% url 'ver_linea' 18 %}" class="linea"><span class="l18">LÍNEA 18</span><br>Estaciones y Recorrido de Línea 18</a>
+  </div>
+
+  <img src="https://cdn-icons-png.flaticon.com/512/8126/8126223.png" alt="Cohete" class="cohete">
+</body>
+</html>

@@ -1,0 +1,82 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Login Transmetro</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 50px;
+    }
+
+    img.logo {
+      width: 300px;
+    }
+
+    .user-icon {
+      width: 100px;
+      height: 100px;
+      margin: 30px auto;
+    }
+
+    input {
+      width: 250px;
+      padding: 10px;
+      margin: 10px 0;
+      border: 2px solid black;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+
+    .login-form {
+      margin-top: 40px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #0078D7;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 15px;
+    }
+
+    button:hover {
+      background-color: #005ea6;
+    }
+  </style>
+</head>
+<body>
+  <img src="{% static 'img/logo_transmetro.png' %}" class="logo" alt="Logo Transmetro">
+  <h4>Ciudad de Guatemala</h4>
+
+  <div class="user-icon">
+    <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" width="100" alt="Usuario">
+  </div>
+
+  <form method="post" class="login-form">
+    {% csrf_token %}
+    <label for="usuario">Usuario</label>
+    <input type="text" id="usuario" name="usuario" required>
+
+    <label for="password">Contraseña</label>
+    <input type="password" id="password" name="password" required>
+
+    <br>
+    <button type="submit">Iniciar sesión</button>
+  </form>
+  {% if mensaje %}
+  <p style="color: green; font-weight: bold;">{{ mensaje }}</p>
+{% endif %}
+</body>
+</html>
