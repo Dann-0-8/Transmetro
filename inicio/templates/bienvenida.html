@@ -2,81 +2,90 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Login Transmetro</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      margin-top: 50px;
-    }
+    <meta charset="UTF-8">
+    <title>Login Transmetro</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f3f3f3;
+            text-align: center;
+            margin-top: 50px;
+        }
 
-    img.logo {
-      width: 300px;
-    }
+        img.logo {
+            width: 250px;
+            margin-bottom: 10px;
+        }
 
-    .user-icon {
-      width: 100px;
-      height: 100px;
-      margin: 30px auto;
-    }
+        .login-container {
+            background-color: white;
+            width: 300px;
+            margin: 40px auto;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0px 0px 10px #ccc;
+        }
 
-    input {
-      width: 250px;
-      padding: 10px;
-      margin: 10px 0;
-      border: 2px solid black;
-      border-radius: 8px;
-      font-size: 16px;
-    }
+        .login-container input[type="text"],
+        .login-container input[type="password"] {
+            width: 90%;
+            padding: 10px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f0f7ff;
+        }
 
-    label {
-      display: block;
-      margin-top: 10px;
-      font-weight: bold;
-    }
+        .login-container button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
 
-    .login-form {
-      margin-top: 40px;
-    }
+        .login-container button:hover {
+            background-color: #0056b3;
+        }
 
-    button {
-      padding: 10px 20px;
-      font-size: 16px;
-      background-color: #0078D7;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      margin-top: 15px;
-    }
+        .avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 15px;
+        }
 
-    button:hover {
-      background-color: #005ea6;
-    }
-  </style>
+        .error {
+            color: red;
+            margin-bottom: 10px;
+        }
+    </style>
 </head>
 <body>
-  <img src="{% static 'img/logo_transmetro.png' %}" class="logo" alt="Logo Transmetro">
-  <h4>Ciudad de Guatemala</h4>
 
-  <div class="user-icon">
-    <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" width="100" alt="Usuario">
-  </div>
+    <img src="{% static 'img/logo_transmetro.png' %}" alt="Logo Transmetro" class="logo">
+    <h2>Ciudad de Guatemala</h2>
 
-  <form method="post" class="login-form">
-    {% csrf_token %}
-    <label for="usuario">Usuario</label>
-    <input type="text" id="usuario" name="usuario" required>
+    <div class="login-container">
+        <img src="{% static 'img/avatar_usuario.png' %}" alt="Avatar" class="avatar">
 
-    <label for="password">Contraseña</label>
-    <input type="password" id="password" name="password" required>
+        {% if error %}
+            <p class="error">{{ error }}</p>
+        {% endif %}
 
-    <br>
-    <button type="submit">Iniciar sesión</button>
-  </form>
-  {% if mensaje %}
-  <p style="color: green; font-weight: bold;">{{ mensaje }}</p>
-{% endif %}
+        <form method="POST">
+            {% csrf_token %}
+            <label>Usuario</label><br>
+            <input type="text" name="username" required><br>
+
+            <label>Contraseña</label><br>
+            <input type="password" name="password" required><br><br>
+
+            <button type="submit">Iniciar sesión</button>
+        </form>
+    </div>
+
 </body>
 </html>

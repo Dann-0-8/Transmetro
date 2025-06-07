@@ -1,0 +1,120 @@
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f1f1f6;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 1100px;
+    margin: 40px auto;
+    background: #fff;
+    padding: 30px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    border-radius: 12px;
+}
+
+header h1 {
+    text-align: center;
+    font-size: 28px;
+    margin-bottom: 0;
+}
+
+header h2 {
+    text-align: center;
+    font-size: 24px;
+    margin-top: 5px;
+    color: #333;
+}
+
+.content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin-top: 25px;
+    justify-content: space-between;
+}
+
+.left-panel {
+    flex: 1 1 45%;
+}
+
+.right-panel {
+    flex: 1 1 45%;
+    text-align: center;
+}
+
+.line-icon {
+    color: white;
+    padding: 10px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+/* Colores personalizados por línea */
+.linea-1 { background-color: #6a1b9a; }     /* morado */
+.linea-2 { background-color: #512da8; }     /* azul oscuro */
+.linea-6 { background-color: #fbc02d; color: black; } /* amarillo */
+.linea-7 { background-color: #e64a19; }     /* naranja */
+.linea-12 { background-color: #4caf50; }    /* verde */
+.linea-13 { background-color: #2196f3; }    /* celeste */
+.linea-18 { background-color: #c2185b; }    /* rosa fuerte */
+
+.stations-list {
+    padding-left: 20px;
+}
+
+.stations-list li {
+    margin-bottom: 15px;
+    line-height: 1.5em;
+    font-size: 17px;
+}
+
+.mapa-img {
+    max-width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+footer {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+footer a {
+    text-decoration: none;
+    background-color: #1976d2;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: background 0.2s ease-in-out;
+}
+
+footer a:hover {
+    background-color: #0d47a1;
+}
+.btn-home-img {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background-color: white;
+    border-radius: 50%;
+    padding: 5px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.2);
+    transition: transform 0.2s ease;
+}
+
+.btn-home-img img {
+    width: 40px;
+    height: 40px;
+}
+
+.btn-home-img:hover {
+    transform: scale(1.1);
+}

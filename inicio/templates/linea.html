@@ -1,70 +1,189 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Estaciones de Línea {{ linea.id_linea }}</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      padding: 30px;
-      background-color: #f4f4f4;
-    }
+    <meta charset="UTF-8">
+    <title>Línea {{ linea.nombre }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f7;
+            padding: 20px;
+        }
 
-    h1 {
-      color: #333;
-      text-align: center;
-    }
+        .contenedor {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            max-width: 1200px;
+            margin: 0 auto;
+            flex-wrap: wrap;
+        }
 
-    .contenedor {
-      max-width: 700px;
-      margin: auto;
-      background-color: white;
-      border-radius: 10px;
-      padding: 30px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.2);
-    }
+        .estaciones {
+            flex: 1 1 50%;
+        }
 
-    ul {
-      list-style-type: none;
-      padding: 0;
-    }
+        .estaciones ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
 
-    li {
-      padding: 10px;
-      border-bottom: 1px solid #ccc;
-    }
+        .estaciones li {
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
 
-    li:last-child {
-      border-bottom: none;
-    }
+        .estaciones li b {
+            font-weight: bold;
+            display: inline-block;
+            margin-right: 10px;
+        }
 
-    .volver {
-      display: block;
-      text-align: center;
-      margin-top: 20px;
-      text-decoration: none;
-      background-color: #0078D7;
-      color: white;
-      padding: 10px 20px;
-      border-radius: 8px;
-    }
+        .mapa {
+            flex: 1 1 40%;
+            text-align: center;
+        }
 
-    .volver:hover {
-      background-color: #005ea6;
-    }
-  </style>
+        .mapa img {
+            max-width: 100%;
+            border-radius: 15px;
+        }
+
+        .encabezado {
+            background-color: {{ linea.color|default:"#6c757d" }};
+            color: white;
+            font-size: 20px;
+            padding: 12px 0;
+            margin-bottom: 25px;
+            border-radius: 15px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .titulo {
+            text-align: center;
+            font-size: 26px;
+            margin-bottom: 15px;
+        }
+
+        .home-icon {
+            position: absolute;
+            top: 20px;
+            left: 30px;
+            height: 30px;
+        }
+
+        /* SWITCH ESTILO */
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 26px;
+            vertical-align: middle;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: 0.4s;
+            border-radius: 26px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 20px;
+            width: 20px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: 0.4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: #4caf50;
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(24px);
+        }
+    </style>
 </head>
 <body>
-  <div class="contenedor">
-    <h1>Estaciones de Línea {{ linea.id_linea }}</h1>
-    <ul>
-      {% for estacion in estaciones %}
-        <li>{{ estacion.nombre }}</li>
-      {% empty %}
-        <li>No hay estaciones registradas para esta línea.</li>
-      {% endfor %}
-    </ul>
-    <a href="{% url 'dashboard' %}" class="volver">⬅ Volver al dashboard</a>
-  </div>
+    <a href="{% url 'dashboard' %}">
+        <img src="{% static 'img/home_icon.png' %}" alt="Inicio" class="home-icon">
+    </a>
+
+    <div class="titulo">
+        Línea {{ linea.nombre }}
+    </div>
+
+    <div class="contenedor">
+        <div class="estaciones">
+            <div class="encabezado">LÍNEA</div>
+
+            <!-- FORMULARIO DE GUARDADO DE ESTADO -->
+            <form method="post" action="{% url 'guardar_estado_estaciones' linea.id_linea %}">
+                {% csrf_token %}
+                <ul>
+                    {% for estacion in estaciones %}
+                        <li>
+                            <b>{{ forloop.counter }}. {{ estacion.nombre }}</b>
+
+                            <label class="switch">
+    <!-- campo oculto forzado a enviar "off" -->
+    <input type="hidden" name="estacion_{{ estacion.id_estacion }}" value="off">
+    <input type="checkbox" name="estacion_{{ estacion.id_estacion }}" value="on" {% if estacion.activa %}checked{% endif %}>
+    <span class="slider"></span>
+</label>
+
+
+                            <div style="font-size: 14px; color: gray;">{{ estacion.direccion }}</div>
+                        </li>
+                    {% endfor %}
+                </ul>
+
+                <div style="text-align: center; margin-top: 20px;">
+                    <button type="submit" style="padding: 10px 20px; background-color: #007bff; color: white; border: none; border-radius: 5px;">
+                        Guardar Cambios
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <div class="mapa">
+            <img src="{% static 'img/mapa_transmetro.png' %}" alt="Mapa General">
+        </div>
+    </div>
+
+    <hr style="margin: 40px 0;">
+
+    <h2 style="text-align: center; color: #007bff;">Agregar Estación</h2>
+
+    <form method="post" action="{% url 'agregar_estacion' linea.id_linea %}" style="max-width: 400px; margin: auto;">
+        {% csrf_token %}
+        <label for="nombre">Nombre de la estación:</label><br>
+        <input type="text" name="nombre" id="nombre" required style="width: 100%; padding: 8px; margin-bottom: 10px;"><br>
+
+        <label for="orden">Orden en la línea:</label><br>
+        <input type="number" name="orden" id="orden" required style="width: 100%; padding: 8px; margin-bottom: 10px;"><br>
+
+        <button type="submit" style="padding: 10px 20px; background-color: #28a745; color: white; border: none; border-radius: 5px;">
+            Agregar Estación
+        </button>
+    </form>
 </body>
 </html>
